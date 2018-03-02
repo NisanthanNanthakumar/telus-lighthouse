@@ -35,8 +35,15 @@ app.get("/", (req, res) => {
       res.status(400).send({
         message: "Bad Request",
         description: err
-      })
+      });
     });
+});
+
+app.all("*", (req, res) => {
+  res.status(404).send({
+    message: "Not Found",
+    description: "The requested resource doesn't exist."
+  });
 });
 
 module.exports = app;
