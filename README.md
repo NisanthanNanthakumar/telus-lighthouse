@@ -66,11 +66,19 @@ Status Code **404**
 
 Query param: `q`
 
-Description: Url that you would like to check for dataLayer object. If url is not given or query paramater not used, the default url is `https://www.telus.com/en/on/mobility/phones/samsung-galaxy-note-8`
+>Description: Url that you would like to check for dataLayer object. If url is not given or query paramater not used, the default url is `https://www.telus.com/en/on/mobility/phones/samsung-galaxy-note-8`
 
-Required: `false`
+>Required: `false`
 
-Example: `localhost:8080/?q=https://www.google.com`
+>Example: `localhost:8080/?q=https://www.google.com`
+
+Query param: `nocache`
+
+>Description: Skip the cache. Defaults to false. 
+
+>Required: `false`
+
+>Example `localhost:8080/?q=https://www.telus.com&nocache=true`
 
 **Data Params** None
 

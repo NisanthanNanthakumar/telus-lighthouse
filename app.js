@@ -12,16 +12,33 @@ const opts = {
   chromeFlags: ["--headless"]
 };
 
+// simple cache structure
+// {
+//   url: [
+//     date, html-file
+//   ]
+// }
+const cache = {};
+
 app.get("/", (req, res) => {
-  const { q } = req.query;
+  const { q, nocache } = req.query;
   let url =
     !q || q === ""
       ? "https://www.telus.com/en/on/mobility/phones/samsung-galaxy-note-8"
       : q;
 
+  if (
+    cache[url] &&
+    cache[url][0] &&
+    (Date.now() - cache[url][0] < 60000) &&
+    nocache !== "true"
+  )
+    return res.status(200).send(cache[url][1]);
+
   launchChromeAndRunLighthouse(url, opts)
     .then(results => new ReportGenerator().generateReportHtml(results))
     .then(results => {
+      cache[url] = [Date.now(), results];
       return new Promise((resolve, reject) => {
         fs.writeFile("report.html", results, err => {
           if (err) reject(err);
