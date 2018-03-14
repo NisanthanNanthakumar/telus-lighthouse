@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
   if (
     cache[url] &&
     cache[url][0] &&
-    (Date.now() - cache[url][0] < 60000) &&
+    Date.now() - cache[url][0] < 60000 &&
     nocache !== "true"
   )
     return res.status(200).send(cache[url][1]);
@@ -39,14 +39,8 @@ app.get("/", (req, res) => {
     .then(results => new ReportGenerator().generateReportHtml(results))
     .then(results => {
       cache[url] = [Date.now(), results];
-      return new Promise((resolve, reject) => {
-        fs.writeFile("report.html", results, err => {
-          if (err) reject(err);
-          else resolve(results);
-        });
-      });
+      res.status(200).send(results);
     })
-    .then(file => res.status(200).sendFile("report.html", { root: __dirname }))
     .catch(err => {
       console.log(err);
       res.status(400).send({
