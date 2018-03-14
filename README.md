@@ -2,7 +2,7 @@
 
 ## View Live Demo
 
-Navigate to [http://35.194.27.76](http://35.194.27.76).
+Navigate to ~~http://35.194.27.76~~. Demo has been taken down.
 
 
 ## Installing / Getting started
